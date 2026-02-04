@@ -3,7 +3,7 @@ pipeline{
 
     environment{
         IMAGE_NAME = "pauldang/eureka-server"
-        TAG = ${BUILD_NUMBER}
+        TAG = "${BUILD_NUMBER}"
     }
 
     stages{
