@@ -21,7 +21,17 @@ pipeline{
 
         stage('Docker Build'){
             steps{
-                sh 'docker build -t $IMAGE_NAME:$TAG .'
+                dir("${WORKSPACE}") {
+                            sh '''
+                              echo "PWD:"
+                              pwd
+                              echo "List root:"
+                              ls -la
+                              echo "List target:"
+                              ls -la target
+                              docker build -t $IMAGE_NAME:$TAG .
+                            '''
+                        }
             }
         }
 
