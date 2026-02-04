@@ -6,6 +6,7 @@ pipeline{
         TAG = ${BUILD_NUMBER}
     }
 
+    stages{
         stage('Build Maven'){
             steps{
                 sh 'mvn clean package -DskipTests'
