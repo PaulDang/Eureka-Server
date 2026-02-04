@@ -6,16 +6,7 @@ pipeline{
         TAG = ${BUILD_NUMBER}
     }
 
-    stages{
-        stage('Checkout'){
-            steps{
-                git branch: 'origin',
-                    credentialsId: 'github-creds',
-                    url: 'https://github.com/PaulDang/Eureka-Server'
-            }
-        }
-
-        stage('Build'){
+        stage('Build Maven'){
             steps{
                 sh 'mvn clean package -DskipTests'
             }
