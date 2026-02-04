@@ -10,29 +10,19 @@ pipeline{
         stage('Build Maven') {
             steps {
                 sh '''
-                  docker run --rm \
-                    -v "$WORKSPACE":/app \
-                    -v "$HOME/.m2":/root/.m2 \
-                    -w /app \
-                    maven:3.9.6-eclipse-temurin-17 \
-                    mvn clean package -DskipTests
+                  ./mvnw clean package -DskipTests
                 '''
             }
         }
 
-        stage('Docker Build'){
-            steps{
-                dir("${WORKSPACE}") {
-                            sh '''
-                              echo "PWD:"
-                              pwd
-                              echo "List root:"
-                              ls -la
-                              echo "List target:"
-                              ls -la target
-                              docker build -t $IMAGE_NAME:$TAG .
-                            '''
-                        }
+        stage('Docker Build') {
+            steps {
+                sh '''
+                  echo "Verify JAR:"
+                  ls -la target
+
+                  docker build -t $IMAGE_NAME:$TAG .
+                '''
             }
         }
 
